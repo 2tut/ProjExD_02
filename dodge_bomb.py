@@ -75,8 +75,8 @@ def main():
 
 def check_bound(rect: pg.rect):
     return (
-        rect.left < 0 or rect.right > WIDTH,
-        rect.top < 0 or rect.bottom > HEIGHT
+      rect.left < 0 or rect.right > WIDTH,
+      rect.top < 0 or rect.bottom > HEIGHT
     )
 
 
