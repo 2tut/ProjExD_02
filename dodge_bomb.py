@@ -20,10 +20,10 @@ def main():
 
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
-    kk_img_x = 900
-    kk_img_y = 400
-    kk_img_rect = kk_img.get_rect()
-    kk_img_rect.center = kk_img_x, kk_img_y
+    kk_x = 900
+    kk_y = 400
+    kk_img_rct = kk_img.get_rect()
+    kk_img_rct.center = kk_x, kk_y
 
     clock = pg.time.Clock()
     tmr = 0
@@ -38,6 +38,7 @@ def main():
     pg.draw.circle(bomb_img, bomb_color, (bomb_r, bomb_r), bomb_r)
     bomb_img_rct = bomb_img.get_rect()
     bomb_img_rct.center = bomb_x, bomb_y
+    bomb_speed = 5
 
     while True:
         for event in pg.event.get():
@@ -51,17 +52,29 @@ def main():
                 kk_speeds[0] += mv[0]
                 kk_speeds[1] += mv[1]
 
-        kk_img_rect.move_ip(kk_speeds)
-        bomb_img_rct.move_ip(5, 5)
+        kk_img_rct.move_ip(kk_speeds)
+        bomb_img_rct.move_ip(bomb_speed, bomb_speed)
+
+        if (True in check_bound(kk_img_rct)):
+            kk_img_rct.center = kk_x, kk_y
+        if (True in check_bound(bomb_img_rct)):
+            bomb_speed *= -1
 
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, kk_img_rect)
+        screen.blit(kk_img, kk_img_rct)
         screen.blit(bomb_img, bomb_img_rct)
 
         pg.display.update()
 
         tmr += 1
         clock.tick(50)
+
+
+def check_bound(rect: pg.rect):
+    return (
+        rect.left < 0 or rect.right > WIDTH,
+        rect.top < 0 or rect.bottom > HEIGHT
+    )
 
 
 if __name__ == "__main__":
