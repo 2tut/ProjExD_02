@@ -6,6 +6,13 @@ import pygame as pg
 WIDTH, HEIGHT = 1600, 900
 
 
+delta = {
+    pg.K_UP: (0, -5),
+    pg.K_DOWN: (0, +5),
+    pg.K_LEFT: (-5, 0),
+    pg.K_RIGHT: (+5, 0),
+}
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
@@ -39,14 +46,10 @@ def main():
 
         keys = pg.key.get_pressed()
         kk_speeds = [0, 0]
-        if keys[pg.K_UP]:
-            kk_speeds[1] -= 5
-        if keys[pg.K_DOWN]:
-            kk_speeds[1] += 5
-        if keys[pg.K_LEFT]:
-            kk_speeds[0] -= 5
-        if keys[pg.K_RIGHT]:
-            kk_speeds[0] += 5
+        for key, mv in delta.items():
+            if (keys[key]):
+                kk_speeds[0] += mv[0]
+                kk_speeds[1] += mv[1]
 
         kk_img_rect.move_ip(kk_speeds)
         bomb_img_rct.move_ip(5, 5)
