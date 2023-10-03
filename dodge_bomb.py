@@ -108,6 +108,16 @@ def main():
             time.sleep(5)
             return
 
+        if tmr > 1000:
+            font = pg.font.SysFont(None, 50)
+            text = font.render("Conguratulations!!", True, (0, 0, 0))
+            screen.blit(text, (WIDTH/2, HEIGHT/2))
+            pg.display.update()
+
+            # 5秒待つ
+            time.sleep(5)
+            return
+
         tmr += 1
         clock.tick(50)
 
