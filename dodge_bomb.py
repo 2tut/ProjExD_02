@@ -66,6 +66,9 @@ def main():
 
         pg.display.update()
 
+        if kk_img_rct.colliderect(bomb_img_rct):
+            return
+
         tmr += 1
         clock.tick(50)
 
