@@ -53,13 +53,11 @@ def main():
     bomb_r = 10
     bomb_x = random.randint(0, WIDTH)
     bomb_y = random.randint(0, HEIGHT)
+    bomb_speed = 5
 
-    bomb_img = pg.Surface((bomb_r*2, bomb_r*2))
-    bomb_img.set_colorkey((0, 0, 0))
-    pg.draw.circle(bomb_img, bomb_color, (bomb_r, bomb_r), bomb_r)
+    bomb_img = make_bomb_surface(bomb_r, bomb_color)
     bomb_img_rct = bomb_img.get_rect()
     bomb_img_rct.center = bomb_x, bomb_y
-    bomb_speed = 5
 
     while True:
         for event in pg.event.get():
@@ -72,6 +70,12 @@ def main():
             if (keys[key]):
                 kk_speeds[0] += mv[0]
                 kk_speeds[1] += mv[1]
+
+        # 爆弾の半径が1000になるまで定期的に巨大化・加速
+        if tmr % 200 == 0 and tmr > 0 and bomb_r < 1000:
+            bomb_r += 5
+            bomb_speed *= 1.2
+            bomb_img = make_bomb_surface(bomb_r, bomb_color)
 
         kk_img_rct.move_ip(kk_speeds)
         bomb_img_rct.move_ip(bomb_speed, bomb_speed)
@@ -115,6 +119,18 @@ def select_kk_imgs(kk_imgs: dict[dict[pg.Surface]], vx: int, vy: int) -> pg.Surf
     kk_img_index_2 = 0 if vy == 0 else vy/abs(vy)
 
     return kk_imgs[kk_img_index_1][kk_img_index_2]
+
+
+def make_bomb_surface(r: int, color: tuple[int, int, int]) -> pg.Surface:
+    """
+    爆弾のSurfaceを生成する
+    引数1 r: 爆弾の半径
+    引数2 color: 爆弾のカラーコードのtuple
+    """
+    img = pg.Surface((r*2, r*2))
+    img.set_colorkey((0, 0, 0))
+    pg.draw.circle(img, color, (r, r), r)
+    return img
 
 
 if __name__ == "__main__":
