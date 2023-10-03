@@ -33,9 +33,9 @@ def main():
         0: pg.transform.rotozoom(kk_img_forward, 0, 1.0),
         -1: pg.transform.rotozoom(kk_img_forward, 45, 1.0)
     }, 0: {
-        1: pg.transform.rotozoom(kk_img_forward, 90, 1.0),
+        1: pg.transform.rotozoom(kk_img_forward, -90, 1.0),
         0: pg.transform.rotozoom(kk_img_forward, 0, 1.0),
-        -1: pg.transform.rotozoom(kk_img_forward, -90, 1.0),
+        -1: pg.transform.rotozoom(kk_img_forward, 90, 1.0),
     }, -1:{
         1: pg.transform.rotozoom(kk_img_backward, 45, 1.0),
         0: pg.transform.rotozoom(kk_img_backward, 0, 1.0),
