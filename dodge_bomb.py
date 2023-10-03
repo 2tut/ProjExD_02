@@ -73,7 +73,7 @@ def main():
                 kk_speeds[1] += mv[1]
 
         # 爆弾の半径が1000になるまで定期的に巨大化・加速
-        if tmr % 200 == 0 and tmr > 0 and bomb_r < 1000:
+        if tmr % 150 == 0 and tmr > 0 and bomb_r < 1000:
             bomb_r += 5
             bomb_speed *= 1.2
             bomb_img = make_bomb_surface(bomb_r, bomb_color)
