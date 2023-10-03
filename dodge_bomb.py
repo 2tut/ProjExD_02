@@ -19,9 +19,12 @@ def main():
     bomb_r = 10
     bomb_x = random.randint(0, WIDTH)
     bomb_y = random.randint(0, HEIGHT)
+
     bomb_img = pg.Surface((bomb_r*2, bomb_r*2))
     bomb_img.set_colorkey((0, 0, 0))
     pg.draw.circle(bomb_img, bomb_color, (bomb_r, bomb_r), bomb_r)
+    bomb_img_rct = bomb_img.get_rect()
+    bomb_img_rct.center = bomb_x, bomb_y
 
     while True:
         for event in pg.event.get():
@@ -30,11 +33,13 @@ def main():
 
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, [900, 400])
-        screen.blit(bomb_img, [bomb_x, bomb_y])
+        screen.blit(bomb_img, bomb_img_rct)
 
         pg.display.update()
+
+        bomb_img_rct.move_ip(5, 5)
         tmr += 1
-        clock.tick(10)
+        clock.tick(50)
 
 
 if __name__ == "__main__":
