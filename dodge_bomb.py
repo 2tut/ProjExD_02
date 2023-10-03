@@ -10,8 +10,14 @@ def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((WIDTH, HEIGHT))
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
+
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img_x = 900
+    kk_img_y = 400
+    kk_img_rect = kk_img.get_rect()
+    kk_img_rect.center = kk_img_x, kk_img_y
+
     clock = pg.time.Clock()
     tmr = 0
 
@@ -31,13 +37,26 @@ def main():
             if event.type == pg.QUIT:
                 return
 
+        keys = pg.key.get_pressed()
+        kk_speeds = [0, 0]
+        if keys[pg.K_UP]:
+            kk_speeds[1] -= 5
+        if keys[pg.K_DOWN]:
+            kk_speeds[1] += 5
+        if keys[pg.K_LEFT]:
+            kk_speeds[0] -= 5
+        if keys[pg.K_RIGHT]:
+            kk_speeds[0] += 5
+
+        kk_img_rect.move_ip(kk_speeds)
+        bomb_img_rct.move_ip(5, 5)
+
         screen.blit(bg_img, [0, 0])
-        screen.blit(kk_img, [900, 400])
+        screen.blit(kk_img, kk_img_rect)
         screen.blit(bomb_img, bomb_img_rct)
 
         pg.display.update()
 
-        bomb_img_rct.move_ip(5, 5)
         tmr += 1
         clock.tick(50)
 
