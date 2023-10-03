@@ -1,5 +1,6 @@
 import random
 import sys
+import time
 import pygame as pg
 
 
@@ -94,6 +95,17 @@ def main():
         pg.display.update()
 
         if kk_img_rct.colliderect(bomb_img_rct):
+            kk_img = pg.image.load("ex02/fig/8.png")
+            kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+
+            screen.blit(bg_img, [0, 0])
+            screen.blit(kk_img, kk_img_rct)
+            screen.blit(bomb_img, bomb_img_rct)
+
+            pg.display.update()
+
+            # 5秒待つ
+            time.sleep(5)
             return
 
         tmr += 1
